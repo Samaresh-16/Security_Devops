@@ -44,6 +44,15 @@ jobs:
       - name: Scan Dependencies with Trivy
         run: trivy fs . > reports/trivy-dependency.txt
 
+      - name: Build Project using Maven
+        run: mvn clean package
+
+      - name: Verify JAR File Exists
+        run: ls -la target/
+
+      - name: Rename JAR File
+        run: mv target/security-demo-1.0-SNAPSHOT.jar target/app.jar
+      
       - name: Build Docker Image
         run: docker build -t my-app -f docker/Dockerfile .
 
