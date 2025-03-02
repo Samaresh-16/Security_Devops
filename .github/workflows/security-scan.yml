@@ -9,6 +9,7 @@ jobs:
       actions: read
       contents: read
       security-events: write
+      issues: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -66,7 +67,7 @@ jobs:
       - name: Start Application
         run: |
           nohup java -jar target/app.jar &  # Start app in background
-          sleep 20  # Wait for app to start
+          sleep 5  # Give some time for the server to start
 
       - name: Check if App is Running
         run: curl -I http://localhost:8080/hello || exit 1
@@ -79,5 +80,10 @@ jobs:
           docker_name: 'ghcr.io/zaproxy/zaproxy:stable'  # Use the correct image
           format: 'json'
           allow_issue_writing: true
-          fail_action: false
-      
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-report
+          path: report_json.json
+        
