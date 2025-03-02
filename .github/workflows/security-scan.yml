@@ -59,8 +59,10 @@ jobs:
       - name: Scan Docker Image for Vulnerabilities
         run: trivy image my-app > reports/trivy-image.txt
       
-      - name: Start Docker Container
-        run: docker run -d -p 8080:8080 my-app
+      - name: Start Application
+        run: |
+          nohup java -jar target/app.jar &  # Start app in background
+          sleep 20  # Wait for app to start
 
       - name: Check if App is Running
         run: curl -I http://localhost:8080 || exit 1
