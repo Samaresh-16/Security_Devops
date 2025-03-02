@@ -45,7 +45,7 @@ jobs:
         run: trivy fs . > reports/trivy-dependency.txt
 
       - name: Build Docker Image
-        run: docker build -t my-app .
+        run: docker build -t my-app -f docker/Dockerfile .
 
       - name: Scan Docker Image for Vulnerabilities
         run: trivy image my-app > reports/trivy-image.txt
