@@ -65,7 +65,7 @@ jobs:
           sleep 20  # Wait for app to start
 
       - name: Check if App is Running
-        run: curl -I http://localhost:8080 || exit 1
+        run: curl -I http://localhost:8080/hello || exit 1
       
 
       - name: Run OWASP ZAP Scan
