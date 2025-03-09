@@ -45,18 +45,14 @@ jobs:
       - name: Create reports directory
         run: mkdir -p reports
 
+      - name: Scan Dependencies with Trivy
+        run: trivy fs . > reports/trivy-dependency.txt
+
       - name: Upload Trivy Dependency Scan Report
         uses: actions/upload-artifact@v4
         with:
           name: trivy-dependency-scan
           path: reports/trivy-dependency.txt
-
-      - name: Upload Trivy Docker Image Scan Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: trivy-docker-scan
-          path: reports/trivy-image.txt
-
 
       - name: Build Project using Maven
         run: mvn clean package
