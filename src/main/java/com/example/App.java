@@ -77,4 +77,16 @@ class HelloController {
             return "File read error"; // 🚨 No proper logging
         }
     }
+
+    // 🛑 VULNERABILITY: Command Injection (Detected by SonarQube)
+    // @GetMapping("/ping")
+    // public String ping(@RequestParam String host) {
+    //     try {
+    //         Process process = Runtime.getRuntime().exec("ping -c 3 " + host); // 🚨 Command Injection
+    //         Scanner scanner = new Scanner(process.getInputStream());
+    //         return scanner.useDelimiter("\\A").next();
+    //     } catch (IOException e) {
+    //         return "Ping error"; // 🚨 No proper logging
+    //     }
+    // }
 }
